@@ -24,6 +24,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/drinks/${id}`);
+      alert("Da li ste sigurni da želite da izbrišete odabrano piće?");
       fetchDrinks();
     } catch (error) {
       console.error("Error deleting drink:", error);
@@ -41,7 +42,10 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/drinks/", { name: ime, description: opis });
+      await axios.post("http://localhost:8000/drinks/", {
+        name: ime,
+        description: opis,
+      });
       setIme("");
       setOpis("");
       fetchDrinks();
@@ -58,10 +62,14 @@ function App() {
 
   const handleEdit = async () => {
     try {
-      await axios.put(`http://localhost:8000/drinks/${selectedDrink.id}/`, { name: ime, description: opis });
+      await axios.put(`http://localhost:8000/drinks/${selectedDrink.id}/`, {
+        name: ime,
+        description: opis,
+      });
       setSelectedDrink(null);
       setIme("");
       setOpis("");
+      alert("Uspesno ste izmenili izabrano pice!");
       fetchDrinks();
     } catch (error) {
       console.log("Error editing drink:", error);
@@ -71,30 +79,76 @@ function App() {
   return (
     <div className="global">
       <div className="nav">
-        <h1 style={{ fontFamily: "fantasy", fontSize: "45px", letterSpacing: "5px" }}>PIĆA CRUD</h1>
+        <h1
+          style={{
+            fontFamily: "fantasy",
+            fontSize: "45px",
+            letterSpacing: "5px",
+          }}
+        >
+          PIĆA CRUD
+        </h1>
       </div>
 
       <div className="nav2">
-        <h1 style={{ fontFamily: "fantasy", fontSize: "25px", letterSpacing: "5px" }}>Kreiraj piće / Izmeni piće:</h1>
+        <h1
+          style={{
+            fontFamily: "fantasy",
+            fontSize: "25px",
+            letterSpacing: "5px",
+          }}
+        >
+          Kreiraj piće / Izmeni piće:
+        </h1>
       </div>
       <div className="create-drink">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Ime pića:</label>
-            <input type="text" placeholder="Naziv pića" name="name" id="name" value={ime} onChange={handleImeChange} required />
+            <input
+              type="text"
+              placeholder="Naziv pića"
+              name="name"
+              id="name"
+              value={ime}
+              onChange={handleImeChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="description">Deskripcija:</label>
-            <input type="text" placeholder="Opis pića" name="description" id="description" value={opis} onChange={handleOpisChange} required />
+            <input
+              type="text"
+              placeholder="Opis pića"
+              name="description"
+              id="description"
+              value={opis}
+              onChange={handleOpisChange}
+              required
+            />
           </div>
-          <button type="submit">Dodaj piće</button>
-          {" "}
-          <button style={{backgroundColor: "orange"}} type="button" onClick={handleEdit}>Izmeni piće</button>
+          <button type="submit">Dodaj piće</button>{" "}
+          <button
+            style={{ backgroundColor: "orange", padding: "7px", borderRadius: "4px", color: "white" }}
+            type="button"
+            onClick={handleEdit}
+          >
+            Izmeni piće
+          </button>
+          <p>*kliknite na piće u tabeli koje želite da izmenite.</p>
         </form>
       </div>
 
       <div className="nav2">
-        <h1 style={{ fontFamily: "fantasy", fontSize: "25px", letterSpacing: "5px" }}>Sva pića:</h1>
+        <h1
+          style={{
+            fontFamily: "fantasy",
+            fontSize: "25px",
+            letterSpacing: "5px",
+          }}
+        >
+          Sva pića:
+        </h1>
       </div>
       <div className="tableOfdrinks">
         <table className="drink-table">
@@ -113,7 +167,12 @@ function App() {
                 <td>{drink.name}</td>
                 <td>{drink.description}</td>
                 <td style={{ textAlign: "center" }}>
-                  <button className="delete-btn" onClick={() => handleDelete(drink.id)}>Obriši</button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(drink.id)}
+                  >
+                    Obriši
+                  </button>
                 </td>
               </tr>
             ))}
