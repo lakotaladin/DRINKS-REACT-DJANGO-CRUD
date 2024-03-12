@@ -31,9 +31,8 @@ def drink_list(request, format = None):
 # UPDATE(PUT), DELETE DRINK
 
 @api_view(['GET', 'PUT', 'DELETE'])
-
-
 def drink_detail(request, id, format = None):
+    print(f'PRINTAMO ID: {id=}')
     try:
        drink = Drink.objects.get( pk = id )
     except Drink.DoesNotExist:
@@ -53,3 +52,4 @@ def drink_detail(request, id, format = None):
     elif request.method == 'DELETE':
         drink.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
+   

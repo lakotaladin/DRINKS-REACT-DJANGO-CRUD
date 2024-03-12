@@ -1,8 +1,8 @@
 from django.db import models
 
 class Drink(models.Model):
-    name = models.CharField(max_length = 15)
-    description = models.CharField(max_length = 300)
+    name = models.CharField(max_length = 15, blank=False, null=False)
+    description = models.CharField(max_length = 300, blank=False, null=False)
 
 
     def __str__(self):
