@@ -157,7 +157,7 @@ function App() {
               <th>Red. broj</th>
               <th>Ime pica</th>
               <th>Deskripcija</th>
-              <th>Obriši</th>
+              <th>Akcija</th>
             </tr>
           </thead>
           <tbody>
